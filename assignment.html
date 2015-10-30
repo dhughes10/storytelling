@@ -10,26 +10,132 @@
   //Open index.html in your browser for assignment instructions
 	//============================================================
 
+	//STORY: Shia is driving his jeep through the scary grasslands during the day and at night he is in search for ghosts but he can never catch them.
+
   //global variables go here
+	var time ="Shia Day"
+	
+  //variables to keep track of the position for the animation
+	var moveX = 190;
+	var moveX2= 670;
+  //image variables
+    var shiajeep;
+    var shianight;
+    var ghosts;
 
   //only use this function if you need to load images
   //remember you will need to use Anvil to run your local server
 	// function preload(){
+		function preload(){
+
+		shiajeep = loadImage("../assets/shia jeep.png");
+		shianight = loadImage("../assets/shia jeepnight.png");
+		ghosts = loadImage("../assets/ghosts.png");
+		  // Load the image
+	}
 
 	// }
-
 
 	//Set up your canvas
 	function setup() {
 		createCanvas(windowWidth, windowHeight);
 
+		 imageMode(CENTER);	
+
 	}
-
-
 	//Draw your story
 	function draw() {
 
+
+		if (time =="Shia Day"){
+  			drawShiaDay();
+  		} else if (time == "Shia Night"){
+ 			drawShiaNight();
+  	}
+
+  }
+	function drawShiaDay() {
+
+        //sky
+		fill("lightblue");
+  		rect(0,0,windowWidth,windowHeight*.75);
+
+		//land
+		fill("green");
+  		rect(0,320,windowWidth,windowHeight*.75);
+  		
+		//sun
+  		fill("yellow");
+  		ellipse(150,150,100,100);
+		image(shiajeep, moveX, 500,shiajeep.width/3,shiajeep.height/3);
+
+
+		if(moveX > windowWidth){
+  			moveX=-10;
+  		}
+  		
+  		}
+
+  	function drawShiaNight() {
+
+  		background(1);
+
+  		//moon
+  		fill("white");
+  		ellipse(150,150,100,100);
+
+        //shia with car lights on
+  		image(shianight, moveX, 500,shianight.width/3,shianight.height/3);
+
+  		//following ghosts
+  		image(ghosts, moveX2, 500,ghosts.width/3,ghosts.height/3);
+
+		if(moveX > windowWidth){
+		  			moveX=-10;
+		  		}
+		if(moveX2 > windowWidth){
+		  			moveX2=-10;
+		  		}	  		
+
+  	}
+  			
+	//check the arrow keys for changes in the direction
+		function keyPressed() {
+
+			//controls car
+ 			if (keyIsDown(LEFT_ARROW))
+    			moveX-=50;
+
+  			if (keyIsDown(RIGHT_ARROW))
+    			moveX+=50;
+
+    		//controls ghosts
+    		if (keyIsDown(LEFT_ARROW))
+    			moveX2-=50;
+
+  			if (keyIsDown(RIGHT_ARROW))
+    			moveX2+=50;
+
+  			clear();
+			
+    //shift key draws Shia Night
+  		if(keyCode === SHIFT){
+
+	  	if(time == "Shia Night"){
+	  		time = "Shia Day";
+	  	} else if (time=="Shia Day"){
+	  		time = "Shia Night";
+	  	}
+	  }
+
 	}
+
+  
+
+
+	
+
+
 
 	//add your functions
 
